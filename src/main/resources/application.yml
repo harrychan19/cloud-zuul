@@ -1,0 +1,21 @@
+server:
+  port: 8088
+spring:
+  application:
+    name: zuul
+eureka:
+  instance:
+    ip-address: 192.168.22.5
+    instance-id: ${eureka.instance.ip-address}:${server.port}
+    health-check-url-path:
+  client:
+    service-url:
+      default-zone: ${eureka.instance.ip-address}:8761/eureka/
+zuul:
+  routes:
+    api-a:
+      path: /api-a/**
+      serviceId: ribbon
+    api-b:
+      path: /api-b/**
+      serviceId: feign
